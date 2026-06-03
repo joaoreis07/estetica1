@@ -26,10 +26,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from './components/ui/accordion';
-import logo from '../assets/logo.png';
-import fotoHero from '../assets/foto-hero.png';
-import fotoVermelho from '../assets/foto-vermelho.png';
-import fotoBranco from '../assets/foto-branco.png';
+import { logo, fotoHero, fotoVermelho, fotoBranco } from '../lib/images';
 
 const WHATSAPP = '5543999136245';
 const EMAIL = 'lucianadominguesoliveira@gmail.com';

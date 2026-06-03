@@ -17,8 +17,7 @@ function figmaAssetResolver() {
 }
 
 export default defineConfig({
-  base:
-    process.env.GITHUB_ACTIONS === 'true' ? '/nutriluciana01/' : './',
+  base: './',
   server: {
     port: 5173,
     strictPort: false,
