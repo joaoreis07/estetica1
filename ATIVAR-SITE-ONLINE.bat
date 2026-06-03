@@ -2,22 +2,22 @@
 chcp 65001 >nul
 echo.
 echo  ============================================
-echo   ATIVAR SITE DA LUCIANA (1 clique no GitHub)
+echo   ATIVAR SITE + DOMINIO PERSONALIZADO
 echo  ============================================
 echo.
-echo  O site ja foi gerado automaticamente.
-echo  Falta SO escolher a branch no GitHub:
+echo  Site: www.nutrilucianadomingues.com.br
 echo.
-echo  1. Vai abrir a pagina de configuracao no navegador
-echo  2. Em "Branch" escolha: gh-pages
-echo  3. Em "Folder" escolha: / (root)
-echo  4. Clique em Save
+echo  NO GITHUB (vai abrir no navegador):
+echo  1. Branch: gh-pages  |  Folder: / (root)  -^> Save
+echo  2. Custom domain: www.nutrilucianadomingues.com.br  -^> Save
+echo  3. Ative "Enforce HTTPS" quando aparecer
 echo.
-echo  Depois de 1-2 minutos acesse:
-echo  https://joaoreis07.github.io/nutriluciana01/
+echo  NO REGISTRO.DO DOMINIO (Registro.br etc.):
+echo  CNAME:  www  -^>  joaoreis07.github.io
+echo.
+echo  Detalhes completos no arquivo: CONFIGURAR-DOMINIO.txt
 echo.
 pause
 start "" "https://github.com/joaoreis07/nutriluciana01/settings/pages"
-echo.
-echo  Pagina aberta. Faca os passos acima e pronto!
+notepad "%~dp0CONFIGURAR-DOMINIO.txt"
 pause
