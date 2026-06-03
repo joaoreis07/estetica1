@@ -11,16 +11,16 @@ npm run dev
 
 Ou dê dois cliques em `ABRIR-SITE.bat` (Windows).
 
-## Site online
+## Site online (GitHub Pages)
 
-**Domínio:** https://www.nutrilucianadomingues.com.br/  
-**Backup:** https://joaoreis07.github.io/nutriluciana01/
+**URL:** https://joaoreis07.github.io/nutriluciana01/
 
-Instruções completas em `CONFIGURAR-DOMINIO.txt` ou duplo clique em `ATIVAR-SITE-ONLINE.bat`.
+### Ativar (só 1 vez) — duplo clique em `ATIVAR-SITE-ONLINE.bat`
 
-### GitHub Pages + domínio
+1. Abre as configurações do GitHub no navegador  
+2. Em **Branch**, escolha **gh-pages**  
+3. Em **Folder**, escolha **/ (root)**  
+4. Clique em **Save**  
+5. Se existir **Custom domain**, apague o campo e salve de novo  
 
-1. **Settings → Pages:** branch `gh-pages`, folder `/ (root)`  
-2. **Custom domain:** `www.nutrilucianadomingues.com.br`  
-3. **DNS (Registro.br):** CNAME `www` → `joaoreis07.github.io`  
-4. Ativar **Enforce HTTPS** quando disponível  
+Aguarde 1–2 minutos e abra o link acima.
