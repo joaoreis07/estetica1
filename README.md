@@ -11,15 +11,16 @@ npm run dev
 
 Ou dê dois cliques em `ABRIR-SITE.bat` (Windows).
 
-## Publicar no GitHub Pages
+## Site online (GitHub Pages)
 
-**URL do site:** https://joaoreis07.github.io/nutriluciana01/
+**URL:** https://joaoreis07.github.io/nutriluciana01/
 
-Se aparecer erro 404, ative o Pages **uma vez** no GitHub:
+### Ativar (só 1 vez) — duplo clique em `ATIVAR-SITE-ONLINE.bat`
 
-1. Abra https://github.com/joaoreis07/nutriluciana01/settings/pages
-2. Em **Build and deployment** → **Source**, escolha **GitHub Actions** (não “Deploy from a branch”).
-3. Vá em **Actions** e confira se o workflow **Deploy to GitHub Pages** terminou com ✓ verde.
-4. Aguarde 2–5 minutos e acesse o link acima.
+1. Abre as configurações do GitHub no navegador  
+2. Em **Branch**, escolha **gh-pages**  
+3. Em **Folder**, escolha **/ (root)**  
+4. Clique em **Save**  
+5. Aguarde 1–2 minutos e abra o link acima  
 
-**Não use** o link do repositório (`github.com/.../nutriluciana01`) para ver o site — use o link `github.io`.
+Use o link `github.io`, não o link `github.com/.../nutriluciana01` (esse é só o código).
