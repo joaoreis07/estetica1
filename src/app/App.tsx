@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { motion } from 'motion/react';
 import {
   MessageCircle,
@@ -9,7 +9,6 @@ import {
   Award,
   ClipboardList,
   GraduationCap,
-  FileText,
   BookOpen,
   ShieldCheck,
   Menu,
@@ -17,6 +16,14 @@ import {
   Phone,
   Building2,
   ChevronDown,
+  Stethoscope,
+  TrendingDown,
+  Dumbbell,
+  Activity,
+  Heart,
+  HeartPulse,
+  Calendar,
+  User,
 } from 'lucide-react';
 import { Button } from './components/Button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './components/Card';
@@ -26,34 +33,75 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from './components/ui/accordion';
+import { Input } from './components/ui/input';
+import { Textarea } from './components/ui/textarea';
+import { Label } from './components/ui/label';
 import { logo, fotoHero, fotoVermelho, fotoBranco } from '../lib/images';
 
 const WHATSAPP = '5543999136245';
 const EMAIL = 'lucianadominguesoliveira@gmail.com';
 const INSTAGRAM = 'https://instagram.com/nutrilucianadomingues';
 const WHATSAPP_MSG =
-  'Olá! Gostaria de solicitar informações sobre consultoria em segurança dos alimentos e treinamentos.';
+  'Olá! Gostaria de agendar uma consulta nutricional com a nutricionista Luciana Domingues.';
 
 const NAV = [
   { label: 'Início', href: '#inicio' },
-  { label: 'Minha História', href: '#historia' },
-  { label: 'Serviços', href: '#servicos' },
-  { label: 'Diferenciais', href: '#diferenciais' },
+  { label: 'Atendimento', href: '#servicos' },
+  { label: 'Sobre', href: '#sobre' },
   { label: 'Depoimentos', href: '#depoimentos' },
   { label: 'Contato', href: '#contato' },
 ];
 
-const SERVICOS = [
+const SERVICOS_CLINICOS = [
+  {
+    icon: TrendingDown,
+    title: 'Emagrecimento',
+    description:
+      'Estratégias nutricionais para perda de peso saudável, sustentável e alinhada à sua rotina.',
+  },
+  {
+    icon: Activity,
+    title: 'Obesidade',
+    description:
+      'Acompanhamento especializado com foco em mudança de hábitos, saúde metabólica e qualidade de vida.',
+  },
+  {
+    icon: Dumbbell,
+    title: 'Nutrição esportiva',
+    description:
+      'Plano alimentar para performance, ganho de massa, definição e recuperação nos treinos.',
+  },
+  {
+    icon: HeartPulse,
+    title: 'Diabetes',
+    description:
+      'Orientação para controle glicêmico, escolhas alimentares seguras e prevenção de complicações.',
+  },
+  {
+    icon: Heart,
+    title: 'Doenças crônicas',
+    description:
+      'Suporte nutricional em hipertensão, dislipidemias e outras condições que exigem cuidado contínuo.',
+  },
+];
+
+const AREAS_SOBRE = [
+  'Atendimento clínico em consultório',
+  'Emagrecimento saudável',
+  'Obesidade',
+  'Nutrição esportiva',
+  'Diabetes',
+  'Doenças crônicas',
+];
+
+const SERVICOS_EMPRESAS = [
   {
     icon: GraduationCap,
     title: 'Treinamento de Boas Práticas de Manipulação de Alimentos',
     items: [
       'Capacitação para manipuladores de alimentos',
-      'Higiene pessoal',
-      'Contaminação cruzada',
-      'Controle de temperatura',
-      'Higienização de ambientes e equipamentos',
-      'Armazenamento correto de alimentos',
+      'Higiene pessoal e contaminação cruzada',
+      'Controle de temperatura e armazenamento',
       'Certificado de participação',
     ],
   },
@@ -62,40 +110,33 @@ const SERVICOS = [
     title: 'Palestras para Empresas e Instituições',
     items: [
       'Boas Práticas de Manipulação',
-      'Segurança dos Alimentos',
-      'Prevenção de Doenças Transmitidas por Alimentos (DTA)',
+      'Segurança dos Alimentos e prevenção de DTA',
       'Alimentação Saudável no Ambiente de Trabalho',
-      'Qualidade em Serviços de Alimentação',
     ],
   },
   {
     icon: ClipboardList,
-    title: 'Elaboração de POPs (Procedimentos Operacionais Padronizados)',
+    title: 'Elaboração de POPs',
     items: [
       'Higienização de instalações',
       'Controle da potabilidade da água',
-      'Higiene e saúde dos manipuladores',
-      'Controle integrado de pragas',
-      'Manejo de resíduos',
+      'Controle integrado de pragas e manejo de resíduos',
     ],
   },
   {
     icon: BookOpen,
-    title: 'Elaboração do Manual de Boas Práticas',
+    title: 'Manual de Boas Práticas',
     items: [
-      'Descrição do estabelecimento',
       'Fluxograma de produção',
       'Procedimentos operacionais',
-      'Controle de qualidade',
-      'Registros obrigatórios',
+      'Registros exigidos pela Vigilância Sanitária',
     ],
   },
   {
     icon: ShieldCheck,
     title: 'Consultoria em Segurança dos Alimentos',
     items: [
-      'Visitas técnicas',
-      'Adequação às normas sanitárias',
+      'Visitas técnicas e adequação sanitária',
       'Preparação para fiscalizações',
       'Correção de não conformidades',
     ],
@@ -103,11 +144,11 @@ const SERVICOS = [
 ];
 
 const DIFERENCIAIS = [
-  'Atendimento personalizado',
-  'Material didático incluso',
-  'Certificados para participantes',
-  'Suporte técnico pós-treinamento',
-  'Adequação às legislações vigentes',
+  'Atendimento personalizado e humanizado',
+  'Plano alimentar 100% individualizado',
+  'Acompanhamento contínuo entre consultas',
+  'Consultas presenciais e online',
+  'Abordagem baseada em evidências científicas',
 ];
 
 const DEPOIMENTOS = [
@@ -119,16 +160,6 @@ const DEPOIMENTOS = [
   'Ótima profissional! Super paciente!',
 ];
 
-const ESTABELECIMENTOS = [
-  'Restaurantes',
-  'Cozinhas industriais',
-  'Lanchonetes',
-  'Padarias',
-  'Escolas',
-  'Hospitais',
-  'Supermercados',
-];
-
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -136,9 +167,9 @@ const fadeInUp = {
   transition: { duration: 0.6 },
 };
 
-function openWhatsApp() {
+function openWhatsApp(message = WHATSAPP_MSG) {
   window.open(
-    `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(WHATSAPP_MSG)}`,
+    `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`,
     '_blank'
   );
 }
@@ -155,10 +186,23 @@ function Stars() {
 
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [form, setForm] = useState({ nome: '', telefone: '', mensagem: '' });
+
+  const handleFormSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const texto = [
+      'Olá! Gostaria de agendar uma consulta nutricional.',
+      form.nome && `Nome: ${form.nome}`,
+      form.telefone && `Telefone: ${form.telefone}`,
+      form.mensagem && `Mensagem: ${form.mensagem}`,
+    ]
+      .filter(Boolean)
+      .join('\n');
+    openWhatsApp(texto);
+  };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navbar */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-primary/20">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <a href="#inicio" className="flex items-center gap-2">
@@ -175,9 +219,9 @@ export default function App() {
                 {item.label}
               </a>
             ))}
-            <Button size="sm" onClick={openWhatsApp}>
-              <MessageCircle className="w-4 h-4" />
-              WhatsApp
+            <Button size="sm" onClick={() => openWhatsApp()}>
+              <Calendar className="w-4 h-4" />
+              Agendar consulta
             </Button>
           </nav>
 
@@ -203,9 +247,9 @@ export default function App() {
                 {item.label}
               </a>
             ))}
-            <Button onClick={openWhatsApp} className="mt-2">
-              <MessageCircle className="w-4 h-4" />
-              Falar no WhatsApp
+            <Button onClick={() => openWhatsApp()} className="mt-2">
+              <Calendar className="w-4 h-4" />
+              Agendar consulta
             </Button>
           </nav>
         )}
@@ -228,28 +272,41 @@ export default function App() {
               className="space-y-8 order-2 lg:order-1"
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm">
-                <ShieldCheck className="w-4 h-4" />
-                Alimentação Coletiva & Segurança dos Alimentos
+                <Stethoscope className="w-4 h-4" />
+                Consultas nutricionais em consultório
               </div>
 
               <div className="space-y-4">
-                <p className="font-script text-4xl md:text-5xl text-primary leading-none">
-                  Luciana Domingues
+                <p className="text-primary font-semibold tracking-wide text-sm uppercase">
+                  Nutricionista · CRN 17564
                 </p>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white">
-                  Garanta a segurança alimentar do seu negócio
+                <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight text-white">
+                  Luciana Domingues de Oliveira
                 </h1>
+                <p className="text-xl md:text-2xl text-primary/90 font-medium leading-snug">
+                  Especialista em obesidade, emagrecimento e nutrição esportiva
+                </p>
                 <p className="text-lg text-white/70 leading-relaxed max-w-xl">
-                  Consultoria, treinamentos e documentação técnica para estabelecimentos
-                  que manipulam alimentos — com foco em legislação sanitária e capacitação
-                  contínua das equipes.
+                  Atendimento clínico personalizado para transformar sua saúde com
+                  estratégias nutricionais seguras, práticas e focadas nos seus objetivos.
                 </p>
               </div>
 
+              <ul className="space-y-2 text-white/80">
+                {['Atendimento personalizado', 'Consultório presencial', 'Acompanhamento contínuo'].map(
+                  (item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <Check className="w-5 h-5 text-primary shrink-0" />
+                      {item}
+                    </li>
+                  )
+                )}
+              </ul>
+
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" onClick={openWhatsApp} className="group">
+                <Button size="lg" onClick={() => openWhatsApp()} className="group shadow-lg">
                   <MessageCircle className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  Solicitar orçamento
+                  Agendar consulta no WhatsApp
                 </Button>
                 <Button
                   size="lg"
@@ -259,7 +316,7 @@ export default function App() {
                     document.getElementById('servicos')?.scrollIntoView({ behavior: 'smooth' })
                   }
                 >
-                  Ver serviços
+                  Ver áreas de atendimento
                 </Button>
               </div>
 
@@ -270,11 +327,11 @@ export default function App() {
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-primary">100%</div>
-                  <div className="text-sm text-white/60">Foco em conformidade</div>
+                  <div className="text-sm text-white/60">Personalizado</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-primary">UAN</div>
-                  <div className="text-sm text-white/60">Treinamentos & POPs</div>
+                  <div className="text-2xl font-bold text-primary">Clínico</div>
+                  <div className="text-sm text-white/60">Consultório</div>
                 </div>
               </div>
             </motion.div>
@@ -288,18 +345,18 @@ export default function App() {
               <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-2 ring-primary/30">
                 <img
                   src={fotoHero}
-                  alt="Luciana Domingues de Oliveira — Nutricionista"
+                  alt="Luciana Domingues de Oliveira — Nutricionista clínica"
                   className="hero-main-image w-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent" />
               </div>
-              <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-brand-dark-card border border-primary/30 p-5 rounded-2xl shadow-xl max-w-[220px]">
+              <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-brand-dark-card border border-primary/30 p-5 rounded-2xl shadow-xl max-w-[240px]">
                 <div className="flex items-center gap-3">
                   <div className="bg-primary/20 p-2.5 rounded-full">
                     <Award className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <div className="font-semibold text-white text-sm">Nutricionista</div>
+                    <div className="font-semibold text-white text-sm">Atendimento clínico</div>
                     <div className="text-xs text-white/60">CRN 17564</div>
                   </div>
                 </div>
@@ -309,7 +366,7 @@ export default function App() {
         </div>
 
         <a
-          href="#historia"
+          href="#servicos"
           className="absolute bottom-8 left-1/2 -translate-x-1/2 text-primary animate-bounce hidden md:block"
           aria-label="Rolar para baixo"
         >
@@ -317,14 +374,61 @@ export default function App() {
         </a>
       </section>
 
-      {/* Minha História */}
-      <section id="historia" className="py-24 bg-card">
+      {/* Serviços clínicos — logo após o hero */}
+      <section id="servicos" className="py-24 bg-card">
+        <div className="container mx-auto px-4">
+          <motion.div {...fadeInUp} className="text-center mb-14">
+            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+              Atendimento clínico
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">
+              Áreas de atuação em consultório
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl mx-auto text-lg">
+              Consultas nutricionais com plano individualizado para cada objetivo e fase da sua
+              jornada de saúde.
+            </p>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {SERVICOS_CLINICOS.map((servico, index) => (
+              <motion.div
+                key={servico.title}
+                {...fadeInUp}
+                transition={{ delay: index * 0.06 }}
+              >
+                <Card className="h-full border-primary/20 hover:shadow-lg hover:border-primary/40 transition-all">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-primary/15 rounded-xl flex items-center justify-center mb-3">
+                      <servico.icon className="w-6 h-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-xl">{servico.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base leading-relaxed">
+                      {servico.description}
+                    </CardDescription>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div {...fadeInUp} className="mt-12 text-center">
+            <Button size="lg" onClick={() => openWhatsApp()}>
+              <Calendar className="w-5 h-5" />
+              Agendar minha consulta
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Sobre */}
+      <section id="sobre" className="py-24 bg-secondary">
         <div className="container mx-auto px-4">
           <motion.div {...fadeInUp} className="max-w-6xl mx-auto">
             <div className="text-center mb-14">
-              <h2 className="font-script text-4xl md:text-5xl text-primary">
-                Conheça Minha História
-              </h2>
+              <h2 className="font-script text-4xl md:text-5xl text-primary">Conheça Minha História</h2>
               <div className="w-20 h-1 bg-primary mx-auto rounded-full mt-4" />
             </div>
 
@@ -333,7 +437,7 @@ export default function App() {
                 <div className="rounded-2xl overflow-hidden shadow-xl ring-1 ring-border">
                   <img
                     src={fotoVermelho}
-                    alt="Luciana Domingues — consultoria em alimentação coletiva"
+                    alt="Luciana Domingues — nutricionista clínica"
                     className="w-full h-auto object-cover"
                   />
                 </div>
@@ -348,144 +452,31 @@ export default function App() {
 
               <div className="space-y-6">
                 <p className="text-lg text-foreground leading-relaxed">
-                  Atuo na área de <strong>Alimentação Coletiva</strong>, oferecendo consultoria,
-                  treinamentos e documentação técnica para restaurantes, cozinhas industriais,
-                  lanchonetes, padarias, escolas, hospitais, supermercados e demais
-                  estabelecimentos que manipulam alimentos.
+                  Sou <strong>Luciana Domingues de Oliveira</strong>, nutricionista registrada no{' '}
+                  <strong>CRN 17564</strong>, com atuação principal em{' '}
+                  <strong>consultório e atendimento clínico</strong>. Trabalho com pacientes que
+                  buscam emagrecimento saudável, tratamento da obesidade, performance esportiva e
+                  cuidado nutricional em diabetes e outras doenças crônicas.
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Meu objetivo é garantir a <strong className="text-foreground">segurança alimentar</strong>,
-                  o cumprimento da <strong className="text-foreground">legislação sanitária</strong> e a{' '}
-                  <strong className="text-foreground">capacitação contínua</strong> das equipes de
-                  manipulação de alimentos.
+                  Minha abordagem combina avaliação detalhada, plano alimentar personalizado e
+                  acompanhamento próximo para que você alcance resultados com segurança e
+                  autonomia no dia a dia.
                 </p>
 
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {ESTABELECIMENTOS.map((tipo) => (
-                    <span
-                      key={tipo}
-                      className="px-3 py-1.5 text-sm rounded-full bg-secondary text-secondary-foreground border border-border"
+                <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                  {AREAS_SOBRE.map((area) => (
+                    <div
+                      key={area}
+                      className="flex items-start gap-2 p-3 rounded-lg bg-card border border-border"
                     >
-                      {tipo}
-                    </span>
+                      <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                      <span className="text-sm font-medium text-foreground">{area}</span>
+                    </div>
                   ))}
-                  <span className="px-3 py-1.5 text-sm rounded-full bg-primary/15 text-foreground border border-primary/30">
-                    e demais estabelecimentos
-                  </span>
                 </div>
               </div>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Serviços */}
-      <section id="servicos" className="py-24 section-dark">
-        <div className="container mx-auto px-4">
-          <motion.div {...fadeInUp} className="text-center mb-14">
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              O que ofereço
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2 text-white">
-              Serviços Oferecidos
-            </h2>
-            <p className="text-white/60 mt-4 max-w-2xl mx-auto text-lg">
-              Soluções completas para adequação sanitária, capacitação de equipes e
-              documentação exigida pela Vigilância Sanitária
-            </p>
-          </motion.div>
-
-          <div className="max-w-4xl mx-auto">
-            <Accordion type="single" collapsible className="space-y-3">
-              {SERVICOS.map((servico, index) => (
-                <motion.div key={servico.title} {...fadeInUp} transition={{ delay: index * 0.05 }}>
-                  <AccordionItem
-                    value={`item-${index}`}
-                    className="border border-primary/25 rounded-xl bg-brand-dark-card px-2 overflow-hidden"
-                  >
-                    <AccordionTrigger className="px-4 py-5 hover:no-underline hover:text-primary text-white [&[data-state=open]]:text-primary">
-                      <div className="flex items-center gap-4 text-left">
-                        <div className="w-12 h-12 shrink-0 bg-primary/15 rounded-xl flex items-center justify-center">
-                          <servico.icon className="w-6 h-6 text-primary" />
-                        </div>
-                        <span className="font-semibold text-base md:text-lg">
-                          {index + 1}. {servico.title}
-                        </span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="px-4 pb-5">
-                      <ul className="space-y-2 pl-16">
-                        {servico.items.map((item) => (
-                          <li key={item} className="flex items-start gap-2 text-white/75">
-                            <Check className="w-4 h-4 text-primary shrink-0 mt-1" />
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </AccordionContent>
-                  </AccordionItem>
-                </motion.div>
-              ))}
-            </Accordion>
-          </div>
-
-          <motion.div {...fadeInUp} className="mt-12 text-center">
-            <Button size="lg" onClick={openWhatsApp}>
-              <FileText className="w-5 h-5" />
-              Solicitar proposta personalizada
-            </Button>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Cards resumo serviços - light section */}
-      <section className="py-20 bg-secondary">
-        <div className="container mx-auto px-4">
-          <motion.div {...fadeInUp} className="text-center mb-10">
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Em resumo
-            </span>
-            <h3 className="text-2xl md:text-3xl font-bold mt-2 text-foreground">
-              Principais áreas de atuação
-            </h3>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {SERVICOS.slice(0, 4).map((servico, index) => (
-              <motion.div key={servico.title} {...fadeInUp} transition={{ delay: index * 0.08 }}>
-                <Card className="h-full border-primary/20 hover:shadow-lg hover:border-primary/40 transition-all">
-                  <CardHeader>
-                    <div className="w-12 h-12 bg-primary/15 rounded-xl flex items-center justify-center mb-3">
-                      <servico.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <CardTitle className="text-lg leading-snug">{servico.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base leading-relaxed">
-                      {servico.items.slice(0, 2).join(' · ')}.
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div {...fadeInUp} className="mt-8 max-w-4xl mx-auto">
-            <Card className="border-primary/20 hover:shadow-lg hover:border-primary/40 transition-all">
-              <CardHeader className="flex flex-row items-start gap-4">
-                <div className="w-12 h-12 shrink-0 bg-primary/15 rounded-xl flex items-center justify-center">
-                  <ShieldCheck className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <CardTitle className="text-lg leading-snug">
-                    {SERVICOS[4].title}
-                  </CardTitle>
-                  <CardDescription className="text-base mt-2 leading-relaxed">
-                    {SERVICOS[4].items.join(' · ')}.
-                  </CardDescription>
-                </div>
-              </CardHeader>
-            </Card>
           </motion.div>
         </div>
       </section>
@@ -495,11 +486,9 @@ export default function App() {
         <div className="container mx-auto px-4">
           <motion.div {...fadeInUp} className="text-center mb-14">
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Por que me escolher
+              Por que agendar
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">
-              Diferenciais
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">Diferenciais</h2>
           </motion.div>
 
           <div className="max-w-3xl mx-auto grid sm:grid-cols-2 gap-4">
@@ -520,18 +509,81 @@ export default function App() {
         </div>
       </section>
 
+      {/* UAN — serviço complementar */}
+      <section id="empresas" className="py-20 section-dark border-t border-primary/10">
+        <div className="container mx-auto px-4">
+          <motion.div {...fadeInUp} className="text-center mb-10 max-w-3xl mx-auto">
+            <span className="text-primary/80 font-semibold text-sm uppercase tracking-wider">
+              Serviço complementar
+            </span>
+            <h2 className="text-2xl md:text-3xl font-bold mt-2 text-white">
+              Alimentação Coletiva (UAN) e consultoria para empresas
+            </h2>
+            <p className="text-white/55 mt-4 text-base leading-relaxed">
+              Também atendo estabelecimentos que necessitam de treinamentos, documentação técnica e
+              adequação sanitária. Esta modalidade é independente das consultas clínicas em
+              consultório.
+            </p>
+          </motion.div>
+
+          <div className="max-w-4xl mx-auto opacity-95">
+            <Accordion type="single" collapsible className="space-y-2">
+              {SERVICOS_EMPRESAS.map((servico, index) => (
+                <AccordionItem
+                  key={servico.title}
+                  value={`uan-${index}`}
+                  className="border border-white/10 rounded-xl bg-brand-dark-card px-2 overflow-hidden"
+                >
+                  <AccordionTrigger className="px-4 py-4 hover:no-underline hover:text-primary text-white/90 text-sm md:text-base">
+                    <div className="flex items-center gap-3 text-left">
+                      <servico.icon className="w-5 h-5 text-primary shrink-0" />
+                      <span>{servico.title}</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 pb-4">
+                    <ul className="space-y-1.5 pl-8 text-white/60 text-sm">
+                      {servico.items.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <Check className="w-3.5 h-3.5 text-primary shrink-0 mt-0.5" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+
+          <motion.div {...fadeInUp} className="mt-8 text-center">
+            <Button
+              variant="secondary"
+              className="border-primary/40 text-primary hover:bg-primary hover:text-brand-dark"
+              onClick={() =>
+                openWhatsApp(
+                  'Olá! Gostaria de informações sobre serviços de UAN e consultoria para empresas.'
+                )
+              }
+            >
+              <Building2 className="w-4 h-4" />
+              Consultar serviços para empresas
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Depoimentos */}
-      <section id="depoimentos" className="py-24 section-dark">
+      <section id="depoimentos" className="py-24 bg-card">
         <div className="container mx-auto px-4">
           <motion.div {...fadeInUp} className="text-center mb-14">
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
               Avaliações
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mt-2 text-white">
-              O que dizem sobre o atendimento
+            <h2 className="text-3xl md:text-4xl font-bold mt-2 text-foreground">
+              O que dizem os pacientes
             </h2>
-            <p className="text-white/60 mt-4 max-w-xl mx-auto">
-              Depoimentos reais de clientes — nomes preservados em sigilo profissional
+            <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
+              Depoimentos reais — nomes preservados em sigilo profissional
             </p>
           </motion.div>
 
@@ -542,7 +594,7 @@ export default function App() {
                 {...fadeInUp}
                 transition={{ delay: index * 0.06 }}
               >
-                <div className="testimonial-card rounded-2xl p-6 h-full flex flex-col gap-4">
+                <div className="rounded-2xl p-6 h-full flex flex-col gap-4 bg-brand-dark border border-primary/20">
                   <Stars />
                   <p className="text-white/90 leading-relaxed flex-1 italic">
                     &ldquo;{texto}&rdquo;
@@ -552,7 +604,7 @@ export default function App() {
                       <Star className="w-4 h-4 text-primary fill-primary" />
                     </div>
                     <div>
-                      <div className="font-medium text-primary text-sm">Cliente verificado</div>
+                      <div className="font-medium text-primary text-sm">Paciente</div>
                       <div className="text-xs text-white/50">Avaliação 5 estrelas</div>
                     </div>
                   </div>
@@ -563,7 +615,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* CTA / Contato */}
+      {/* Contato + formulário */}
       <section
         id="contato"
         className="py-24 bg-gradient-to-br from-primary via-accent to-primary relative overflow-hidden"
@@ -574,26 +626,88 @@ export default function App() {
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div {...fadeInUp} className="max-w-4xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <motion.div {...fadeInUp} className="max-w-5xl mx-auto">
+            <div className="text-center mb-12 text-brand-dark">
+              <h2 className="text-3xl md:text-4xl font-bold">Agende sua consulta</h2>
+              <p className="text-lg text-brand-dark/80 mt-3 max-w-2xl mx-auto">
+                Preencha o formulário ou fale direto pelo WhatsApp. Resposta rápida em horário
+                comercial.
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-2 gap-10 items-start">
+              <form
+                onSubmit={handleFormSubmit}
+                className="bg-brand-dark rounded-2xl p-6 md:p-8 shadow-2xl space-y-5"
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="nome" className="text-white">
+                    Nome completo
+                  </Label>
+                  <Input
+                    id="nome"
+                    placeholder="Seu nome"
+                    value={form.nome}
+                    onChange={(e) => setForm({ ...form, nome: e.target.value })}
+                    className="bg-brand-dark-card border-white/20 text-white placeholder:text-white/40"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="telefone" className="text-white">
+                    WhatsApp / Telefone
+                  </Label>
+                  <Input
+                    id="telefone"
+                    type="tel"
+                    placeholder="(43) 99999-9999"
+                    value={form.telefone}
+                    onChange={(e) => setForm({ ...form, telefone: e.target.value })}
+                    className="bg-brand-dark-card border-white/20 text-white placeholder:text-white/40"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="mensagem" className="text-white">
+                    Como posso ajudar?
+                  </Label>
+                  <Textarea
+                    id="mensagem"
+                    placeholder="Ex.: quero agendar consulta para emagrecimento..."
+                    rows={4}
+                    value={form.mensagem}
+                    onChange={(e) => setForm({ ...form, mensagem: e.target.value })}
+                    className="bg-brand-dark-card border-white/20 text-white placeholder:text-white/40"
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full bg-primary text-primary-foreground"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Enviar e agendar pelo WhatsApp
+                </Button>
+              </form>
+
               <div className="space-y-6 text-brand-dark">
-                <h2 className="text-3xl md:text-4xl font-bold">
-                  Entre em contato
-                </h2>
-                <p className="text-lg text-brand-dark/80 leading-relaxed">
-                  Tire suas dúvidas, solicite orçamento para treinamentos, palestras,
-                  elaboração de POPs, Manual de Boas Práticas ou consultoria técnica.
-                </p>
                 <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-brand-dark/10 rounded-lg flex items-center justify-center">
+                      <User className="w-5 h-5 text-brand-dark" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-brand-dark/70">Profissional</div>
+                      <div className="font-semibold">Luciana Domingues de Oliveira · CRN 17564</div>
+                    </div>
+                  </div>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-brand-dark/10 rounded-lg flex items-center justify-center">
                       <Phone className="w-5 h-5 text-brand-dark" />
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-brand-dark/70">WhatsApp / Telefone</div>
+                      <div className="text-sm font-medium text-brand-dark/70">WhatsApp</div>
                       <a
                         href={`https://wa.me/${WHATSAPP}`}
-                        className="font-semibold text-brand-dark hover:underline"
+                        className="font-semibold hover:underline"
                       >
                         +55 (43) 9913-6245
                       </a>
@@ -605,10 +719,7 @@ export default function App() {
                     </div>
                     <div>
                       <div className="text-sm font-medium text-brand-dark/70">E-mail</div>
-                      <a
-                        href={`mailto:${EMAIL}`}
-                        className="font-semibold text-brand-dark hover:underline break-all"
-                      >
+                      <a href={`mailto:${EMAIL}`} className="font-semibold hover:underline break-all">
                         {EMAIL}
                       </a>
                     </div>
@@ -623,49 +734,36 @@ export default function App() {
                         href={INSTAGRAM}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-semibold text-brand-dark hover:underline"
+                        className="font-semibold hover:underline"
                       >
                         @nutrilucianadomingues
                       </a>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="bg-brand-dark rounded-2xl p-8 shadow-2xl space-y-6">
-                <div className="text-center space-y-2">
-                  <img src={logo} alt="Logo" className="h-24 mx-auto" />
-                  <h3 className="text-xl font-semibold text-white">
-                    Luciana Domingues de Oliveira
-                  </h3>
-                  <p className="text-primary font-medium">Nutricionista · CRN 17564</p>
-                </div>
                 <Button
                   size="lg"
-                  onClick={openWhatsApp}
-                  className="w-full bg-primary text-primary-foreground hover:opacity-90"
+                  onClick={() => openWhatsApp()}
+                  className="w-full bg-brand-dark text-white hover:bg-brand-dark/90"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  Chamar no WhatsApp
+                  Chamar agora no WhatsApp
                 </Button>
-                <p className="text-center text-white/50 text-sm">
-                  Resposta rápida em horário comercial
-                </p>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-brand-dark border-t border-primary/20 py-12">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div className="space-y-3">
               <img src={logo} alt="Luciana Domingues" className="h-14" />
               <p className="text-white/60 text-sm leading-relaxed">
-                Consultoria, treinamentos e documentação técnica em Alimentação Coletiva
-                e Segurança dos Alimentos.
+                Consultas nutricionais em consultório — emagrecimento, obesidade, nutrição
+                esportiva, diabetes e doenças crônicas. CRN 17564.
               </p>
             </div>
 
@@ -716,19 +814,18 @@ export default function App() {
 
           <div className="border-t border-white/10 pt-8 text-center text-white/50 text-sm">
             <p>
-              &copy; {new Date().getFullYear()} Luciana Domingues de Oliveira. Todos os
-              direitos reservados. CRN 17564
+              &copy; {new Date().getFullYear()} Luciana Domingues de Oliveira. Todos os direitos
+              reservados. CRN 17564
             </p>
           </div>
         </div>
       </footer>
 
-      {/* WhatsApp flutuante */}
       <button
         type="button"
-        onClick={openWhatsApp}
+        onClick={() => openWhatsApp()}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
-        aria-label="WhatsApp"
+        aria-label="Agendar consulta no WhatsApp"
       >
         <MessageCircle className="w-7 h-7" />
       </button>
