@@ -78,11 +78,19 @@ const SERVICOS_CLINICOS = [
   },
 ];
 
-const AREAS_SOBRE = [
-  'Atendimento clínico geral',
-  'Obesidade e emagrecimento saudável',
-  'Nutrição esportiva',
-  'Diabetes e outras doenças crônicas',
+const CONSULTA_PASSOS = [
+  {
+    titulo: 'Avaliação clínica',
+    descricao: 'Análise de rotina, histórico, exames e objetivos para um plano preciso.',
+  },
+  {
+    titulo: 'Plano individualizado',
+    descricao: 'Estratégia nutricional adaptada à sua realidade, sem radicalismo.',
+  },
+  {
+    titulo: 'Acompanhamento contínuo',
+    descricao: 'Ajustes ao longo do processo para evolução com constância.',
+  },
 ];
 
 const SERVICOS_EMPRESAS = [
@@ -475,18 +483,21 @@ export default function App() {
 
                 <div className="space-y-2">
                   <p className="text-sm font-semibold text-primary uppercase tracking-wide">
-                    Áreas principais de atendimento
+                    Como funciona a consulta
                   </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {AREAS_SOBRE.map((area) => (
+                <div className="grid gap-3">
+                  {CONSULTA_PASSOS.map((passo) => (
                     <div
-                      key={area}
+                      key={passo.titulo}
                       className="flex items-start gap-2 p-3 rounded-lg bg-card border border-border"
                     >
                       <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-sm font-medium text-foreground">{area}</span>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">{passo.titulo}</p>
+                        <p className="text-sm text-muted-foreground">{passo.descricao}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -655,7 +666,7 @@ export default function App() {
             <div className="grid lg:grid-cols-2 gap-10 items-start">
               <form
                 onSubmit={handleFormSubmit}
-                className="bg-brand-dark rounded-2xl p-6 md:p-8 shadow-2xl space-y-5"
+                className="min-w-0 bg-brand-dark rounded-2xl p-6 md:p-8 shadow-2xl space-y-5"
               >
                 <div className="space-y-2">
                   <Label htmlFor="nome" className="text-white">
@@ -698,14 +709,14 @@ export default function App() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full bg-primary text-primary-foreground"
+                  className="w-full bg-primary text-primary-foreground whitespace-normal h-auto py-4 text-base leading-snug"
                 >
                   <MessageCircle className="w-5 h-5" />
                   Enviar e agendar pelo WhatsApp
                 </Button>
               </form>
 
-              <div className="space-y-6 text-brand-dark">
+              <div className="min-w-0 space-y-6 text-brand-dark">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-brand-dark/10 rounded-lg flex items-center justify-center">
@@ -713,7 +724,9 @@ export default function App() {
                     </div>
                     <div>
                       <div className="text-sm font-medium text-brand-dark/70">Profissional</div>
-                      <div className="font-semibold">Luciana Domingues de Oliveira · CRN 17564</div>
+                      <div className="font-semibold break-words">
+                        Luciana Domingues de Oliveira · CRN 17564
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
