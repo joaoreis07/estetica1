@@ -469,17 +469,17 @@ export default function App() {
               <div className="space-y-6">
                 <p className="text-lg text-foreground leading-relaxed">
                   Sou <strong>Luciana Domingues de Oliveira</strong>, nutricionista registrada no{' '}
-                  <strong>CRN 17564</strong>, especializada em obesidade e emagrecimento, nutrição
-                  esportiva, também atuando em tratamento de diabetes e outras doenças crônicas,
-                  assim como palestras e treinamentos de Unidades de Alimentação e Nutrição (UAN).
-                </p>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  Minha abordagem combina avaliação detalhada, plano alimentar personalizado e
-                  acompanhamento próximo para que você alcance resultados com segurança e
-                  autonomia no dia a dia.
+                  <strong>CRN 17564</strong>. Aqui, o foco principal é o atendimento clínico com
+                  estratégia simples, personalizada e objetiva.
                 </p>
 
-                <div className="grid sm:grid-cols-2 gap-3 pt-2">
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold text-primary uppercase tracking-wide">
+                    Áreas principais de atendimento
+                  </p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-3">
                   {AREAS_SOBRE.map((area) => (
                     <div
                       key={area}
