@@ -79,11 +79,10 @@ const SERVICOS_CLINICOS = [
 ];
 
 const AREAS_SOBRE = [
-  'Atendimento clínico em consultório',
-  'Emagrecimento saudável',
-  'Obesidade',
+  'Atendimento clínico geral',
+  'Obesidade e emagrecimento saudável',
   'Nutrição esportiva',
-  'Diabetes e doenças crônicas',
+  'Diabetes e outras doenças crônicas',
 ];
 
 const SERVICOS_EMPRESAS = [
@@ -533,7 +532,7 @@ export default function App() {
               Serviço complementar
             </span>
             <h2 className="text-2xl md:text-3xl font-bold mt-2 text-white">
-              Alimentação Coletiva (UAN) e consultoria para empresas
+              Consultoria para Unidades de Alimentação e Nutrição (UAN)
             </h2>
             <p className="text-white/55 mt-4 text-base leading-relaxed">
               Também atendo estabelecimentos que necessitam de treinamentos, documentação técnica e
