@@ -20,7 +20,6 @@ import {
   TrendingDown,
   Dumbbell,
   Activity,
-  Heart,
   HeartPulse,
   Calendar,
   User,
@@ -73,15 +72,9 @@ const SERVICOS_CLINICOS = [
   },
   {
     icon: HeartPulse,
-    title: 'Diabetes',
+    title: 'Diabetes e doenças crônicas',
     description:
-      'Orientação para controle glicêmico, escolhas alimentares seguras e prevenção de complicações.',
-  },
-  {
-    icon: Heart,
-    title: 'Doenças crônicas',
-    description:
-      'Suporte nutricional em hipertensão, dislipidemias e outras condições que exigem cuidado contínuo.',
+      'Suporte nutricional para controle glicêmico, hipertensão, dislipidemias e outras condições que exigem cuidado contínuo.',
   },
 ];
 
@@ -90,8 +83,7 @@ const AREAS_SOBRE = [
   'Emagrecimento saudável',
   'Obesidade',
   'Nutrição esportiva',
-  'Diabetes',
-  'Doenças crônicas',
+  'Diabetes e doenças crônicas',
 ];
 
 const SERVICOS_EMPRESAS = [
@@ -152,12 +144,33 @@ const DIFERENCIAIS = [
 ];
 
 const DEPOIMENTOS = [
-  'Excelente profissional! Muito atenciosa e o plano alimentar é super acessível e personalizado. Recomendo demais!',
-  'Ótima profissional, estuda muito cada caso, atenciosa, super recomendo!',
-  'Foi uma honra conhecer essa profissional. Seu planejamento e suas dicas são maravilhosas. Está me ajudando muito, já estou vestindo roupas que fazia meses que não me serviam. O carinho e a atenção no dia da consulta e no suporte nos demais dias é 100%.',
-  'Ótima nutricionista, muito atenciosa. Segui toda sua orientação e emagreci 15 kg em 4 meses só com adequação alimentar. Melhorou muito minha saúde.',
-  'Excelente profissional! Muito prestativa e atenciosa! Super indico!',
-  'Ótima profissional! Super paciente!',
+  {
+    nome: 'L***** C*******',
+    texto:
+      'Excelente profissional! Muito atenciosa e o plano alimentar é super acessível e personalizado. Recomendo demais!',
+  },
+  {
+    nome: 'J****** P*******',
+    texto: 'Ótima profissional, estuda muito cada caso, atenciosa, super recomendo!',
+  },
+  {
+    nome: 'E****** X*****',
+    texto:
+      'Foi uma honra conhecer essa profissional. Seu planejamento e suas dicas são maravilhosas. Está me ajudando muito, já estou vestindo roupas que fazia meses que não me serviam. O carinho e a atenção no dia da consulta e no suporte nos demais dias é 100%.',
+  },
+  {
+    nome: 'L****** A******** D********',
+    texto:
+      'Ótima nutricionista, muito atenciosa. Segui toda sua orientação e emagreci 15 kg em 4 meses só com adequação alimentar. Melhorou muito minha saúde.',
+  },
+  {
+    nome: 'M**** C***** D* S****',
+    texto: 'Excelente profissional! Muito prestativa e atenciosa! Super indico!',
+  },
+  {
+    nome: 'M***** O*******',
+    texto: 'Ótima profissional! Super paciente!',
+  },
 ];
 
 const fadeInUp = {
@@ -273,7 +286,7 @@ export default function App() {
             >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm">
                 <Stethoscope className="w-4 h-4" />
-                Consultas nutricionais em consultório
+                Consultas presenciais e online
               </div>
 
               <div className="space-y-4">
@@ -284,16 +297,20 @@ export default function App() {
                   Luciana Domingues de Oliveira
                 </h1>
                 <p className="text-xl md:text-2xl text-primary/90 font-medium leading-snug">
-                  Especialista em obesidade, emagrecimento e nutrição esportiva
+                  ESPECIALISTA EM OBESIDADE, EMAGRECIMENTO e NUTRIÇÃO ESPORTIVA
                 </p>
                 <p className="text-lg text-white/70 leading-relaxed max-w-xl">
-                  Atendimento clínico personalizado para transformar sua saúde com
-                  estratégias nutricionais seguras, práticas e focadas nos seus objetivos.
+                  A arte de nutrir vidas por meio da reeducação alimentar permite que, ao meu
+                  lado, você alcance seus objetivos sem sofrimento.
                 </p>
               </div>
 
               <ul className="space-y-2 text-white/80">
-                {['Atendimento personalizado', 'Consultório presencial', 'Acompanhamento contínuo'].map(
+                {[
+                  'Atendimento personalizado',
+                  'Consultório presencial e online',
+                  'Acompanhamento contínuo',
+                ].map(
                   (item) => (
                     <li key={item} className="flex items-center gap-2">
                       <Check className="w-5 h-5 text-primary shrink-0" />
@@ -453,10 +470,9 @@ export default function App() {
               <div className="space-y-6">
                 <p className="text-lg text-foreground leading-relaxed">
                   Sou <strong>Luciana Domingues de Oliveira</strong>, nutricionista registrada no{' '}
-                  <strong>CRN 17564</strong>, com atuação principal em{' '}
-                  <strong>consultório e atendimento clínico</strong>. Trabalho com pacientes que
-                  buscam emagrecimento saudável, tratamento da obesidade, performance esportiva e
-                  cuidado nutricional em diabetes e outras doenças crônicas.
+                  <strong>CRN 17564</strong>, especializada em obesidade e emagrecimento, nutrição
+                  esportiva, também atuando em tratamento de diabetes e outras doenças crônicas,
+                  assim como palestras e treinamentos de Unidades de Alimentação e Nutrição (UAN).
                 </p>
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   Minha abordagem combina avaliação detalhada, plano alimentar personalizado e
@@ -588,7 +604,7 @@ export default function App() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {DEPOIMENTOS.map((texto, index) => (
+            {DEPOIMENTOS.map((depoimento, index) => (
               <motion.div
                 key={index}
                 {...fadeInUp}
@@ -597,14 +613,16 @@ export default function App() {
                 <div className="rounded-2xl p-6 h-full flex flex-col gap-4 bg-brand-dark border border-primary/20">
                   <Stars />
                   <p className="text-white/90 leading-relaxed flex-1 italic">
-                    &ldquo;{texto}&rdquo;
+                    &ldquo;{depoimento.texto}&rdquo;
                   </p>
                   <div className="flex items-center gap-3 pt-4 border-t border-primary/20">
                     <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
                       <Star className="w-4 h-4 text-primary fill-primary" />
                     </div>
                     <div>
-                      <div className="font-medium text-primary text-sm">Paciente</div>
+                      <div className="font-medium text-primary text-sm blur-[1.2px] select-none">
+                        {depoimento.nome}
+                      </div>
                       <div className="text-xs text-white/50">Avaliação 5 estrelas</div>
                     </div>
                   </div>
