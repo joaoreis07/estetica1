@@ -152,30 +152,30 @@ const DIFERENCIAIS = [
 
 const DEPOIMENTOS = [
   {
-    nome: 'L***** C*******',
+    nome: 'Luciania Cordeiro',
     texto:
       'Excelente profissional! Muito atenciosa e o plano alimentar é super acessível e personalizado. Recomendo demais!',
   },
   {
-    nome: 'J****** P*******',
+    nome: 'Josiane Pimentel',
     texto: 'Ótima profissional, estuda muito cada caso, atenciosa, super recomendo!',
   },
   {
-    nome: 'E****** X*****',
+    nome: 'Eduarda Xavier',
     texto:
       'Foi uma honra conhecer essa profissional. Seu planejamento e suas dicas são maravilhosas. Está me ajudando muito, já estou vestindo roupas que fazia meses que não me serviam. O carinho e a atenção no dia da consulta e no suporte nos demais dias é 100%.',
   },
   {
-    nome: 'L****** A******** D********',
+    nome: 'Luciano Augusto Domingues',
     texto:
       'Ótima nutricionista, muito atenciosa. Segui toda sua orientação e emagreci 15 kg em 4 meses só com adequação alimentar. Melhorou muito minha saúde.',
   },
   {
-    nome: 'M**** C***** D* S****',
+    nome: 'Marcos Correa da Silva',
     texto: 'Excelente profissional! Muito prestativa e atenciosa! Super indico!',
   },
   {
-    nome: 'M***** O*******',
+    nome: 'Marcia Oliveira',
     texto: 'Ótima profissional! Super paciente!',
   },
 ];
@@ -222,7 +222,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <header className="fixed top-0 left-0 right-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-primary/20">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <a href="#inicio" className="flex items-center gap-2">
@@ -300,11 +300,11 @@ export default function App() {
                 <p className="text-primary font-semibold tracking-wide text-sm uppercase">
                   Nutricionista · CRN 17564
                 </p>
-                <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight text-white">
+                <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight text-white break-words">
                   Luciana Domingues de Oliveira
                 </h1>
-                <p className="text-xl md:text-2xl text-primary/90 font-medium leading-snug">
-                  ESPECIALISTA EM OBESIDADE, EMAGRECIMENTO e NUTRIÇÃO ESPORTIVA
+                <p className="text-lg sm:text-xl md:text-2xl text-primary/90 font-medium leading-snug">
+                  ESPECIALISTA em OBESIDADE, EMAGRECIMENTO e NUTRIÇÃO ESPORTIVA
                 </p>
                 <p className="text-lg text-white/70 leading-relaxed max-w-xl">
                   A arte de nutrir vidas por meio da reeducação alimentar permite que, ao meu
@@ -314,9 +314,9 @@ export default function App() {
 
               <ul className="space-y-2 text-white/80">
                 {[
-                  'Atendimento personalizado',
-                  'Consultório presencial e online',
-                  'Acompanhamento contínuo',
+                  'Consultas',
+                  'Palestras e treinamentos',
+                  'Elaboração de rótulos nutricionais',
                 ].map(
                   (item) => (
                     <li key={item} className="flex items-center gap-2">
@@ -476,9 +476,9 @@ export default function App() {
 
               <div className="space-y-6">
                 <p className="text-lg text-foreground leading-relaxed">
-                  Sou <strong>Luciana Domingues de Oliveira</strong>, nutricionista registrada no{' '}
-                  <strong>CRN 17564</strong>. Aqui, o foco principal é o atendimento clínico com
-                  estratégia simples, personalizada e objetiva.
+                  <strong>CRN 17564</strong>, especializada em obesidade e emagrecimento, nutrição
+                  esportiva, também atuando em tratamento de diabetes e outras doenças crônicas,
+                  assim como palestras e treinamentos de Unidades de Alimentação e Nutrição (UAN).
                 </p>
 
                 <div className="space-y-2">
@@ -630,7 +630,7 @@ export default function App() {
                       <Star className="w-4 h-4 text-primary fill-primary" />
                     </div>
                     <div>
-                      <div className="font-medium text-primary text-sm blur-[1.2px] select-none">
+                      <div className="font-medium text-primary text-sm">
                         {depoimento.nome}
                       </div>
                       <div className="text-xs text-white/50">Avaliação 5 estrelas</div>
@@ -646,7 +646,7 @@ export default function App() {
       {/* Contato + formulário */}
       <section
         id="contato"
-        className="py-24 bg-gradient-to-br from-primary via-accent to-primary relative overflow-hidden"
+        className="pt-24 pb-32 md:pb-24 bg-gradient-to-br from-primary via-accent to-primary relative overflow-hidden"
       >
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-0 left-0 w-72 h-72 bg-white rounded-full blur-3xl" />
@@ -854,7 +854,7 @@ export default function App() {
       <button
         type="button"
         onClick={() => openWhatsApp()}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+        className="fixed bottom-20 md:bottom-6 right-6 z-50 w-14 h-14 bg-primary text-primary-foreground rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
         aria-label="Agendar consulta no WhatsApp"
       >
         <MessageCircle className="w-7 h-7" />
