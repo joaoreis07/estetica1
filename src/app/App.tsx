@@ -476,7 +476,7 @@ export default function App() {
 
               <div className="space-y-6">
                 <p className="text-lg text-foreground leading-relaxed">
-                  Sou Luciana Domingues de Oliveora, nutricionista registrada no{' '}
+                  Sou Luciana Domingues de Oliveira, nutricionista registrada no{' '}
                   <strong>CRN 17564</strong>, especializada em obesidade e emagrecimento, nutrição
                   esportiva, também atuando em tratamento de diabetes e outras doenças crônicas,
                   assim como palestras e treinamentos de Unidades de Alimentação e Nutrição (UAN).
