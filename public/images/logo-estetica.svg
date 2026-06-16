@@ -1,0 +1,8 @@
+<svg width="420" height="120" viewBox="0 0 420 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="420" height="120" rx="20" fill="#1F1F1F"/>
+  <circle cx="52" cy="60" r="26" fill="#B89A6A"/>
+  <path d="M42 60C42 54.4772 46.4772 50 52 50C57.5228 50 62 54.4772 62 60C62 65.5228 57.5228 70 52 70C46.4772 70 42 65.5228 42 60Z" fill="#1F1F1F"/>
+  <path d="M52 74C44.268 74 38 80.268 38 88H66C66 80.268 59.732 74 52 74Z" fill="#B89A6A"/>
+  <text x="92" y="54" fill="#EAE3D8" font-family="Montserrat, Arial, sans-serif" font-size="18" font-weight="600">Sofia Beauty IA</text>
+  <text x="92" y="82" fill="#B89A6A" font-family="Montserrat, Arial, sans-serif" font-size="22" font-weight="700">Estetica Avancada</text>
+</svg>

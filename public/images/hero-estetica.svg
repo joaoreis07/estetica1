@@ -1,0 +1,14 @@
+<svg width="900" height="1200" viewBox="0 0 900 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="1200" fill="#F7F5F0"/>
+  <rect x="70" y="90" width="760" height="1020" rx="90" fill="#EAE3D8"/>
+  <circle cx="450" cy="430" r="170" fill="#D8C9B1"/>
+  <ellipse cx="450" cy="760" rx="230" ry="250" fill="#7A5A46"/>
+  <path d="M330 425C330 358.726 383.726 305 450 305C516.274 305 570 358.726 570 425V452H330V425Z" fill="#7A5A46"/>
+  <rect x="380" y="520" width="140" height="190" rx="70" fill="#D8C9B1"/>
+  <rect x="285" y="835" width="330" height="220" rx="34" fill="#FFFFFF"/>
+  <rect x="320" y="875" width="260" height="26" rx="13" fill="#EAE3D8"/>
+  <rect x="320" y="920" width="210" height="26" rx="13" fill="#EAE3D8"/>
+  <rect x="320" y="965" width="180" height="26" rx="13" fill="#EAE3D8"/>
+  <circle cx="450" cy="590" r="22" fill="#B89A6A"/>
+  <text x="450" y="150" text-anchor="middle" fill="#7A5A46" font-family="Montserrat, Arial, sans-serif" font-size="38" font-weight="700">Estética Premium</text>
+</svg>
